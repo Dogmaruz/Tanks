@@ -8,6 +8,7 @@ public class Player : SingletonBase<Player>, IDependency<FP_MovementController>
     [SerializeField] private Transform m_respawnPoint;
 
     private FP_CharacterController m_characterController; //—сылка на игрока.
+    public FP_CharacterController CharacterController => m_characterController;
 
     private FP_MovementController _movementController;
 

@@ -1,28 +1,25 @@
 using UnityEngine;
-using static UnityEngine.GraphicsBuffer;
 
 public class FP_CharacterController : Destructible
 {
-    [SerializeField] private float m_forceSpeed; // Скорость движения.
+    [SerializeField] protected float m_forceSpeed; // Скорость движения.
 
-    [SerializeField] private Animator m_animator;
+    //[SerializeField] private Animator m_animator;
 
-    [SerializeField] private Transform m_TowerTransform; // Transform для вращения персонажа
+    [SerializeField] protected Transform m_TowerTransform; // Transform для вращения персонажа
 
-    [SerializeField] private float m_tankRotationSpeed;
+    [SerializeField] protected float m_tankRotationSpeed;
 
-    [SerializeField] private float m_towerRotationSpeed;
+    [SerializeField] protected float m_towerRotationSpeed;
 
-    private Rigidbody2D _rigibody;
-
-    Quaternion targetRotation;
+    protected Rigidbody2D _rigibody;
 
     private void Awake()
     {
         _rigibody = GetComponent<Rigidbody2D>();
     }
 
-    public void UpdateInputs(ref PlayerInputs playerInputs)
+    public virtual void UpdateInputs(ref PlayerInputs playerInputs)
     {
 
         // Атака.
@@ -54,7 +51,7 @@ public class FP_CharacterController : Destructible
         m_TowerTransform.rotation = Quaternion.Slerp(m_TowerTransform.rotation, target, m_towerRotationSpeed * Time.deltaTime);
     }
 
-    public void FixedUpdateInputs(ref PlayerInputs playerInputs)
+    public virtual void FixedUpdateInputs(ref PlayerInputs playerInputs)
     {
 
         //Смена анимации.

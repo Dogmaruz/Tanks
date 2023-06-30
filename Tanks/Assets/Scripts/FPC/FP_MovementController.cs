@@ -18,21 +18,19 @@ public struct PlayerInputs
 
     public bool MouseButtonDown;
 
-
+    public Vector3 Direction;
 }
 
 public class FP_MovementController : MonoBehaviour
 {
-    private FP_CharacterController _character;
+    protected FP_CharacterController _character;
 
-    private FP_CameraController _characterCamera;
+    protected const string _horizontalInput = "Horizontal";
 
-    private const string _horizontalInput = "Horizontal";
-
-    private const string _verticalInput = "Vertical";
+    protected const string _verticalInput = "Vertical";
 
 
-    private PlayerInputs _playerInputs;
+    protected PlayerInputs _playerInputs;
 
     private void Start()
     {
@@ -56,12 +54,12 @@ public class FP_MovementController : MonoBehaviour
         _character.FixedUpdateInputs(ref _playerInputs);
     }
 
-    private void CameraInput()
+    protected void CameraInput()
     {
 
     }
 
-    private void CharacterInput()
+    protected virtual void CharacterInput()
     {
         if (_character == null) return;
 
