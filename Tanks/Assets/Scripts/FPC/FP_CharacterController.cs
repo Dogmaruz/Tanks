@@ -14,9 +14,13 @@ public class FP_CharacterController : Destructible
 
     protected Rigidbody2D _rigibody;
 
+    private Turret[] m_Turrets;
+
     private void Awake()
     {
         _rigibody = GetComponent<Rigidbody2D>();
+
+        m_Turrets = GetComponentsInChildren<Turret>();
     }
 
     public virtual void UpdateInputs(ref PlayerInputs playerInputs)
@@ -25,7 +29,10 @@ public class FP_CharacterController : Destructible
         // Атака.
         if (playerInputs.MouseButtonDown)
         {
-            Debug.Log("Огонь");
+            foreach (var turret in m_Turrets)
+            {
+                turret.Fire();
+            }
         }
 
         // Перемещение танка

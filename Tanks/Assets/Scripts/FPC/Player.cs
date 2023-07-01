@@ -52,13 +52,6 @@ public class Player : SingletonBase<Player>, IDependency<FP_MovementController>
     #region Score
 
     public int Score { get; private set; } //Счет.
-    public int NumKills { get; private set; } //Колличество уничтоженных объектов.
-
-    //Добавляет колличество уничтоженных объектов.
-    public void AddKill()
-    {
-        NumKills++;
-    }
 
     //Увеличивает счет.
     public void AddScore(int num)

@@ -43,7 +43,6 @@ public class AI_MovementController : FP_MovementController, IDependency<A_Grid>
                 m_grid.path.RemoveAt(0);
             }
         }
-
     }
 
     public void Move(Vector3 direction)

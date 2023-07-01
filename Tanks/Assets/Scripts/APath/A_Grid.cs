@@ -34,7 +34,7 @@ public class A_Grid : MonoBehaviour
     }
 
     // Создаем сетку и заполняем ее с учетом слоев
-    void CreateGrid()
+    public void CreateGrid()
     {
         grid = new Node[gridSizeX, gridSizeY];
 
@@ -51,6 +51,11 @@ public class A_Grid : MonoBehaviour
                 grid[x, y] = new Node(walkable, worldPoint, x, y);
             }
         }
+    }
+
+    public void UpdateGrid(Node node)
+    {
+        grid[node.gridX, node.gridY].walkable = true;
     }
 
     //Получаем соседние клетки

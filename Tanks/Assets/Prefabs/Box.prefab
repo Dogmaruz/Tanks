@@ -11,6 +11,8 @@ GameObject:
   - component: {fileID: 4482608552210284634}
   - component: {fileID: 3516032262858528617}
   - component: {fileID: 561814625575744386}
+  - component: {fileID: 7326134175481797344}
+  - component: {fileID: 6562453451134569253}
   m_Layer: 0
   m_Name: Box
   m_TagString: Untagged
@@ -111,3 +113,51 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 2, y: 2}
   m_EdgeRadius: 0
+--- !u!114 &7326134175481797344
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 430845271197126822}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37ed63844879aad4faadc3821b6fc8ee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Nickname: Box
+  m_Indestructibe: 0
+  m_HitPoints: 10
+  m_EventOnDeath:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 6562453451134569253}
+        m_TargetAssemblyTypeName: Box, Assembly-CSharp
+        m_MethodName: UpdateGrid
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  m_EventOnUpdateHP:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ImpactEffect: {fileID: 0}
+  m_TeamId: 0
+  m_ScoreValue: 2
+--- !u!114 &6562453451134569253
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 430845271197126822}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ecbaf11062f59344d87fd5e626b1c941, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

@@ -64,7 +64,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 128
   gridWorldSize: {x: 64, y: 36}
-  nodeRadius: 1
+  nodeRadius: 0.5
 --- !u!1 &958719267
 GameObject:
   m_ObjectHideFlags: 0
@@ -8109,15 +8109,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6109700882030761412, guid: 0f47f61e9cc58a44d800676979cd6eef, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 20.841158
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6109700882030761412, guid: 0f47f61e9cc58a44d800676979cd6eef, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 17.712406
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6109700882030761412, guid: 0f47f61e9cc58a44d800676979cd6eef, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -8.556348
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6109700882030761412, guid: 0f47f61e9cc58a44d800676979cd6eef, type: 3}
       propertyPath: m_LocalRotation.w
@@ -8149,7 +8149,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6109700882030761414, guid: 0f47f61e9cc58a44d800676979cd6eef, type: 3}
       propertyPath: m_Name
-      value: Player (Druid)
+      value: Player (Tank)
       objectReference: {fileID: 0}
     - target: {fileID: 6109700882030761419, guid: 0f47f61e9cc58a44d800676979cd6eef, type: 3}
       propertyPath: m_respawnPoint

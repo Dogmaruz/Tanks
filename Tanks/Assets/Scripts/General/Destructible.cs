@@ -124,8 +124,6 @@ public class Destructible : Entity
         m_HitPoints = asset.HitPoints;
 
         m_ScoreValue = asset.ScoreValue;
-
-        m_KillValue = asset.KillValue;
     }
 
     public const int TeamIdNeutral = 0;
@@ -137,13 +135,9 @@ public class Destructible : Entity
 
     #region Score
 
-    //Задает значение очков за попадание.
+    //Задает значение очков за уничтожение.
     [SerializeField] private int m_ScoreValue;
     public int ScoreValue => m_ScoreValue;
-
-    //Задает значение очков за уничтожение.
-    [SerializeField] private int m_KillValue;
-    public int KillValue => m_KillValue;
 
     #endregion
 }

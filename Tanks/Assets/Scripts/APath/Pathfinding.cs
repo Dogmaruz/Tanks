@@ -43,7 +43,7 @@ public class Pathfinding : MonoBehaviour, IDependency<A_Grid>
 
                 sw.Stop();
 
-                print("Path found! " + sw.ElapsedMilliseconds + " ms");
+                //print("Путь найден! " + sw.ElapsedMilliseconds + " ms");
 
                 RetracePath(startNode, targetNode);
 
