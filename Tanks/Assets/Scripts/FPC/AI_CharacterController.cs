@@ -5,9 +5,11 @@ public class AI_CharacterController : FP_CharacterController
     public override void UpdateInputs(ref PlayerInputs playerInputs)
     {
         // Атака.
-        if (playerInputs.MouseButtonDown)
+        if (playerInputs.MouseButtonPrimaryDown)
         {
-            Debug.Log("Огонь");
+            _mode = TurretMode.Primary;
+
+            Fire();
         }
 
         // Перемещение танка
@@ -21,8 +23,6 @@ public class AI_CharacterController : FP_CharacterController
         Quaternion target = Quaternion.AngleAxis(angle, Vector3.forward);
 
         transform.rotation = Quaternion.Slerp(transform.rotation, target, m_tankRotationSpeed * Time.deltaTime);
-
-        //transform.rotation = Quaternion.Euler(0, 0, angle);
 
         //Поворот башни
 

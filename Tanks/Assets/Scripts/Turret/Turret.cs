@@ -27,10 +27,6 @@ public class Turret : MonoBehaviour
         {
             m_RefireTimer -= Time.deltaTime;
         }
-        else if (m_Mode == TurretMode.Auto)
-        {//Делает постоянный выстрел в режиме Auto.
-            Fire();
-        }
     }
 
     //Public API
@@ -41,6 +37,11 @@ public class Turret : MonoBehaviour
         if (m_TurretProperties == null) return;
 
         if (m_RefireTimer > 0) return;
+
+        if (m_TurretProperties.Mode == TurretMode.Secondary)
+        {
+            if (m_character.DrawAmmo(m_TurretProperties.AmoUsage) == false) return;
+        }
 
         Projectile projectile = Instantiate(m_TurretProperties.ProjectilePrefab).GetComponent<Projectile>();
 

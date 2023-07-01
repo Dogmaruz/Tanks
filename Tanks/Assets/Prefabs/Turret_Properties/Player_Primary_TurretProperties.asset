@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 91ccb4c8c488e13439fa853ab4fa65b9, type: 3}
-  m_Name: AI_TurretProperties 1
+  m_Name: Player_Primary_TurretProperties
   m_EditorClassIdentifier: 
   m_Mode: 0
-  m_ProjectilePrefab: {fileID: 1530471514799149526, guid: ce667f954d8914440a1857a93bac9258, type: 3}
-  m_RateOfFire: 2
-  m_AmoUsage: 0
+  m_ProjectilePrefab: {fileID: 1530471514799149526, guid: 7a7833199badba244a45dc2fb5397583, type: 3}
+  m_RateOfFire: 0.5
+  m_AmoUsage: 1
   m_ProjectileSound: 0

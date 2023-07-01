@@ -4,29 +4,27 @@ using UnityEngine;
 [RequireComponent(typeof(SpriteRenderer))]
 public class TrackEffect : MonoBehaviour
 {
-    [Range(0f, 4f)]
-    [SerializeField] private float m_ParallaxPower;
+    [Range(0f, 1f)]
+    [SerializeField] private float m_trackSpeed;
 
     private Material m_QuadMaterial;
 
-    private Vector2 m_InitialOffset;
+    private Vector2 m_offset;
+
+    private FP_CharacterController m_characterController;
 
     private void Start()
     {
         m_QuadMaterial = GetComponent<SpriteRenderer>().material;
 
-        m_InitialOffset = UnityEngine.Random.insideUnitCircle;
+        m_characterController = transform.root.GetComponent<FP_CharacterController>();
     }
 
     private void Update()
     {
-        Vector2 offset = m_InitialOffset;
+        m_offset.y += m_characterController.GetVelosity() * m_trackSpeed * Time.deltaTime;
 
-        //offset.x += transform.position.x / m_ParallaxPower;
-
-        offset.y += transform.position.y / m_ParallaxPower;
-
-        m_QuadMaterial.mainTextureOffset = offset;
+        m_QuadMaterial.mainTextureOffset = m_offset;
     }
 }
 

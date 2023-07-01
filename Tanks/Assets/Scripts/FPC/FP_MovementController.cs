@@ -16,7 +16,9 @@ public struct PlayerInputs
 
     public Vector3 MousePosition;
 
-    public bool MouseButtonDown;
+    public bool MouseButtonPrimaryDown;
+
+    public bool MouseButtonSecondatyDown;
 
     public Vector3 Direction;
 }
@@ -69,7 +71,9 @@ public class FP_MovementController : MonoBehaviour
 
         _playerInputs.MousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
-        _playerInputs.MouseButtonDown = Input.GetMouseButtonDown(0);
+        _playerInputs.MouseButtonPrimaryDown = Input.GetMouseButtonDown(0);
+
+        _playerInputs.MouseButtonSecondatyDown = Input.GetMouseButtonDown(1);
 
         // Применение настроек ввода
         _character.UpdateInputs(ref _playerInputs);

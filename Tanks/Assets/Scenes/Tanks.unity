@@ -1205,7 +1205,7 @@ MonoBehaviour:
     m_Bits: 1
   m_VolumeTrigger: {fileID: 0}
   m_VolumeFrameworkUpdateModeOption: 2
-  m_RenderPostProcessing: 0
+  m_RenderPostProcessing: 1
   m_Antialiasing: 0
   m_AntialiasingQuality: 2
   m_StopNaN: 0
@@ -2381,6 +2381,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4554768695489274913, guid: 8aa046edf8a2bcc4ab38bbc09a42d1b7, type: 3}
+      propertyPath: m_radius
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 4554768695489274913, guid: 8aa046edf8a2bcc4ab38bbc09a42d1b7, type: 3}
+      propertyPath: m_layerMask.m_Bits
+      value: 183
+      objectReference: {fileID: 0}
     - target: {fileID: 5054617005049419640, guid: 8aa046edf8a2bcc4ab38bbc09a42d1b7, type: 3}
       propertyPath: m_Name
       value: AI_Character (Enemy)
@@ -2391,11 +2399,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5054617005049419642, guid: 8aa046edf8a2bcc4ab38bbc09a42d1b7, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 28.9
+      value: 27
       objectReference: {fileID: 0}
     - target: {fileID: 5054617005049419642, guid: 8aa046edf8a2bcc4ab38bbc09a42d1b7, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 13
+      value: 11.2
       objectReference: {fileID: 0}
     - target: {fileID: 5054617005049419642, guid: 8aa046edf8a2bcc4ab38bbc09a42d1b7, type: 3}
       propertyPath: m_LocalPosition.z

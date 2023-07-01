@@ -6,33 +6,48 @@ public class FP_CharacterController : Destructible
 
     //[SerializeField] private Animator m_animator;
 
+    [SerializeField] private int m_MaxAmmo;
+
     [SerializeField] protected Transform m_TowerTransform; // Transform для вращения персонажа
 
     [SerializeField] protected float m_tankRotationSpeed;
 
     [SerializeField] protected float m_towerRotationSpeed;
 
+    private int m_SecondaryAmmo; //Вторичная турель.
+    public int SecondaryAmmo => m_SecondaryAmmo;
+
     protected Rigidbody2D _rigibody;
 
     private Turret[] m_Turrets;
+
+    protected TurretMode _mode;
 
     private void Awake()
     {
         _rigibody = GetComponent<Rigidbody2D>();
 
         m_Turrets = GetComponentsInChildren<Turret>();
+
+        m_SecondaryAmmo = m_MaxAmmo;
     }
 
     public virtual void UpdateInputs(ref PlayerInputs playerInputs)
     {
 
         // Атака.
-        if (playerInputs.MouseButtonDown)
+        if (playerInputs.MouseButtonPrimaryDown)
         {
-            foreach (var turret in m_Turrets)
-            {
-                turret.Fire();
-            }
+            _mode = TurretMode.Primary;
+
+            Fire();
+        }
+
+        if (playerInputs.MouseButtonSecondatyDown)
+        {
+            _mode = TurretMode.Secondary;
+
+            Fire();
         }
 
         // Перемещение танка
@@ -58,6 +73,38 @@ public class FP_CharacterController : Destructible
         m_TowerTransform.rotation = Quaternion.Slerp(m_TowerTransform.rotation, target, m_towerRotationSpeed * Time.deltaTime);
     }
 
+    public void AddAmmo(int ammo)
+    {
+        m_SecondaryAmmo = Mathf.Clamp(m_SecondaryAmmo + ammo, 0, m_MaxAmmo);
+    }
+
+    //Использование снарядов.
+    public bool DrawAmmo(int count)
+    {
+        if (count == 0)
+            return true;
+
+        if (m_SecondaryAmmo >= count)
+        {
+            m_SecondaryAmmo -= count;
+
+            return true;
+        }
+
+        return false;
+    }
+
+    protected void Fire()
+    {
+        foreach (var turret in m_Turrets)
+        {
+            if (turret.Mode == _mode)
+            {
+                turret.Fire();
+            }
+        }
+    }
+
     public virtual void FixedUpdateInputs(ref PlayerInputs playerInputs)
     {
 
@@ -71,5 +118,10 @@ public class FP_CharacterController : Destructible
     {
 
 
+    }
+
+    public float GetVelosity()
+    {
+        return _rigibody.velocity.magnitude;
     }
 }

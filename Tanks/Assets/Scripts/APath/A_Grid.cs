@@ -53,9 +53,19 @@ public class A_Grid : MonoBehaviour
         }
     }
 
-    public void UpdateGrid(Node node)
+    public List<Node> GetWalkableNodes()
     {
-        grid[node.gridX, node.gridY].walkable = true;
+        List<Node> walkableNodes = new List<Node>();
+
+        for (int x = 0; x < gridSizeX; x++)
+        {
+            for (int y = 0; y < gridSizeY; y++)
+            {
+                if(grid[x, y].walkable == true) walkableNodes.Add(grid[x, y]);
+            }
+        }
+
+        return walkableNodes;
     }
 
     //Получаем соседние клетки
