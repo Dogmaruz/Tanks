@@ -13,8 +13,6 @@ MonoBehaviour:
   m_Name: AI_TurretProperties 1
   m_EditorClassIdentifier: 
   m_Mode: 0
-  m_ProjectilePrefab: {fileID: 1530471514799149526, guid: 7a7833199badba244a45dc2fb5397583, type: 3}
+  m_ProjectilePrefab: {fileID: 1530471514799149526, guid: ce667f954d8914440a1857a93bac9258, type: 3}
   m_RateOfFire: 0.5
-  m_EnergyUsage: 0
-  m_AmoUsage: 0
   m_ProjectileSound: 0
