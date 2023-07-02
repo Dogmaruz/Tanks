@@ -4,16 +4,16 @@ using UnityEngine;
 
 public class Pathfinding : MonoBehaviour, IDependency<A_Grid>
 {
-    private A_Grid grid;
+    private A_Grid _grid;
 
     public void Construct(A_Grid obj)
     {
-        grid = obj;
+        _grid = obj;
     }
 
-    void Update() 
+    public void SetGrid(A_Grid grid)
     {
-        
+        _grid = grid;
     }
 
     public void FindPath(Vector3 startPos, Vector3 targetPos) 
@@ -22,11 +22,11 @@ public class Pathfinding : MonoBehaviour, IDependency<A_Grid>
 
         sw.Start();
 
-        Node startNode = grid.NodeFromWorldPoint(startPos);
+        Node startNode = _grid.NodeFromWorldPoint(startPos);
 
-        Node targetNode = grid.NodeFromWorldPoint(targetPos);
+        Node targetNode = _grid.NodeFromWorldPoint(targetPos);
 
-        Heap<Node> openSet = new Heap<Node>(grid.MaxSize); // Set of nodes to be evaluated
+        Heap<Node> openSet = new Heap<Node>(_grid.MaxSize); // Set of nodes to be evaluated
 
         HashSet<Node> closedSet = new HashSet<Node>(); // Set of nodes already evaluated
 
@@ -50,7 +50,7 @@ public class Pathfinding : MonoBehaviour, IDependency<A_Grid>
                 return;
             }
 
-            foreach (Node neighbour in grid.GetNeighbours(node)) 
+            foreach (Node neighbour in _grid.GetNeighbours(node)) 
             {
                 if (!neighbour.walkable || closedSet.Contains(neighbour)) 
                 {
@@ -95,7 +95,7 @@ public class Pathfinding : MonoBehaviour, IDependency<A_Grid>
 
         path.Reverse();
 
-        grid.path = path;
+        _grid.path = path;
     }
 
     // Диагональный метод

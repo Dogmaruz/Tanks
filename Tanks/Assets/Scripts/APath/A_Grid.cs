@@ -49,6 +49,8 @@ public class A_Grid : MonoBehaviour
                 bool walkable = !Physics2D.OverlapCircle(worldPoint, nodeRadius, unwalkableMask);
 
                 grid[x, y] = new Node(walkable, worldPoint, x, y);
+
+                grid[x, y].IsActive = !walkable;
             }
         }
     }
@@ -116,49 +118,51 @@ public class A_Grid : MonoBehaviour
 
     public List<Node> path;
 
-    void OnDrawGizmos()
-    {
-        Gizmos.DrawWireCube(transform.position, new Vector3(gridWorldSize.x, gridWorldSize.y, 1));
+    //void OnDrawGizmos()
+    //{
+    //    Gizmos.DrawWireCube(transform.position, new Vector3(gridWorldSize.x, gridWorldSize.y, 1));
 
-        if (onlyDisplayPathGizmos)
-        {
-            if (path != null)
-            {
-                foreach (Node n in path)
-                {
-                    Gizmos.color = Color.black;
+    //    if (onlyDisplayPathGizmos)
+    //    {
+    //        if (path != null)
+    //        {
+    //            foreach (Node n in path)
+    //            {
+    //                Gizmos.color = Color.black;
 
-                    Gizmos.DrawCube(n.worldPosition, Vector3.one * (nodeDiameter - 0.1f));
-                }
-            }
-        }
-        else
-        {
+    //                Gizmos.DrawCube(n.worldPosition, Vector3.one * (nodeDiameter - 0.1f));
+    //            }
+    //        }
+    //    }
+    //    else
+    //    {
 
-            if (grid != null)
-            {
-                foreach (Node n in grid)
-                {
-                    Gizmos.color = (n.walkable) ? Color.white : Color.red;
+    //        if (grid != null)
+    //        {
+    //            foreach (Node n in grid)
+    //            {
+    //                Gizmos.color = (n.walkable) ? Color.white : Color.red;
 
-                    if (path != null)
-                    {
-                        if (path.Contains(n))
-                        {
-                            Gizmos.color = Color.black;
-                        }
-                    }
+    //                if (path != null)
+    //                {
+    //                    if (path.Contains(n))
+    //                    {
+    //                        Gizmos.color = Color.black;
+    //                    }
+    //                }
 
-                    Gizmos.DrawCube(n.worldPosition, Vector3.one * (nodeDiameter - 0.1f));
-                }
-            }
-        }
-    }
+    //                Gizmos.DrawCube(n.worldPosition, Vector3.one * (nodeDiameter - 0.1f));
+    //            }
+    //        }
+    //    }
+    //}
 }
 
 public class Node : IHeapItem<Node>
 {
     public bool walkable;
+
+    public bool IsActive;
 
     public Vector3 worldPosition;
 

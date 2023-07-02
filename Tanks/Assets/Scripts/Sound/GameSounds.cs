@@ -12,6 +12,7 @@ public class GameSounds : ScriptableObject
 
     public AudioClip this[Sound sound] => m_Sounds[(int)sound];
 
+
 #if UNITY_EDITOR
     [CustomEditor(typeof(GameSounds))]
     public class SoundsInspector : Editor

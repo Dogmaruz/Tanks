@@ -23,5 +23,4 @@ public sealed class TurretProperties : ScriptableObject
 
     [SerializeField] private Sound m_ProjectileSound;
     public Sound ProjectileSound => m_ProjectileSound;
-
 }

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Box : MonoBehaviour, IDependency<A_Grid>
+public class RecalculationGrid : MonoBehaviour, IDependency<A_Grid>
 {
     private A_Grid _grid;
 
@@ -12,5 +12,10 @@ public class Box : MonoBehaviour, IDependency<A_Grid>
     public void UpdateGrid()
     {
         _grid.CreateGrid();
+    }
+
+    public void SetGrid(A_Grid grid)
+    {
+        _grid = grid;
     }
 }

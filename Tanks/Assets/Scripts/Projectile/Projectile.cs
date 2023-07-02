@@ -3,6 +3,8 @@ using UnityEngine.Events;
 
 public class Projectile : Entity
 {
+    [SerializeField] private LayerMask m_laeyerMask;
+
     [SerializeField] private float m_Velocity; //Скорость.
     public float Velocity => m_Velocity;
 
@@ -26,7 +28,7 @@ public class Projectile : Entity
 
         Vector2 step = transform.up * stepLenght;
 
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, transform.up, stepLenght);
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, transform.up, stepLenght, m_laeyerMask);
 
         //Проверка на столкновение пули с объектом.
 
@@ -48,8 +50,6 @@ public class Projectile : Entity
 
         transform.position += new Vector3(step.x, step.y, 0);
     }
-
-    //Старый код из Projectile.
 
     protected virtual void OnHit(RaycastHit2D hit)
     {

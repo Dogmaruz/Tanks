@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 
-
 public class Turret : MonoBehaviour
 {
     [SerializeField] private TurretMode m_Mode;
@@ -28,8 +27,6 @@ public class Turret : MonoBehaviour
             m_RefireTimer -= Time.deltaTime;
         }
     }
-
-    //Public API
 
     //Производит выстрел.
     public void Fire()

@@ -1,5 +1,4 @@
 using UnityEngine;
-using static UnityEngine.LightAnchor;
 
 public class AI_CharacterController : FP_CharacterController
 {
@@ -24,7 +23,10 @@ public class AI_CharacterController : FP_CharacterController
         // Перемещение танка
         Vector2 movement = transform.up * playerInputs.MoveAxisForward * m_moveSpeed;
 
-        _rigibody.velocity = movement;
+        if (_rigibody.bodyType != RigidbodyType2D.Static)
+        {
+            _rigibody.velocity = movement;
+        }
 
         // Поворот танка
         if (playerInputs.Direction != Vector3.zero)

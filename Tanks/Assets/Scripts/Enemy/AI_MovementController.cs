@@ -14,7 +14,8 @@ public class AI_MovementController : FP_MovementController, IDependency<A_Grid>
 
     [SerializeField] private bool m_IsWalkable;
 
-    private A_Grid m_grid;
+    private A_Grid _grid;
+    public A_Grid Grid { get => _grid; set => _grid = value; }
 
     private Pathfinding _pathfinding;
 
@@ -22,9 +23,10 @@ public class AI_MovementController : FP_MovementController, IDependency<A_Grid>
 
     private Vector3 _patrolTarget;
 
+
     public void Construct(A_Grid obj)
     {
-        m_grid = obj;
+        _grid = obj;
     }
 
     private void Awake()
@@ -37,7 +39,6 @@ public class AI_MovementController : FP_MovementController, IDependency<A_Grid>
     protected override void CharacterInput()
     {
         if (Player.Instance.CharacterController == null) return;
-
 
         FintMovePosition();
 
@@ -67,7 +68,7 @@ public class AI_MovementController : FP_MovementController, IDependency<A_Grid>
             }
             else
             {
-                List<Node> walkableNodes = m_grid.GetWalkableNodes();
+                List<Node> walkableNodes = _grid.GetWalkableNodes();
 
                 Node node = walkableNodes[Random.Range(0, walkableNodes.Count)];
 
@@ -80,10 +81,10 @@ public class AI_MovementController : FP_MovementController, IDependency<A_Grid>
     {
         _pathfinding.FindPath(transform.position, target);
 
-        if (m_grid.path != null && m_grid.path.Count > 0)
+        if (_grid.path != null && _grid.path.Count > 0)
         {
             // Перемещаем противника к следующему узлу на пути
-            Vector3 targetPosition = m_grid.path[0].worldPosition;
+            Vector3 targetPosition = _grid.path[0].worldPosition;
 
             Vector3 moveDirection = (targetPosition - transform.position).normalized;
 
@@ -92,7 +93,7 @@ public class AI_MovementController : FP_MovementController, IDependency<A_Grid>
             // Если противник достиг следующей точки, удаляем ее из пути
             if (Vector3.Distance(transform.position, targetPosition) < 0.1f)
             {
-                m_grid.path.RemoveAt(0);
+                _grid.path.RemoveAt(0);
             }
         }
     }
@@ -126,7 +127,7 @@ public class AI_MovementController : FP_MovementController, IDependency<A_Grid>
     {
         if (_characterAI == null) return;
 
-        if (m_grid.path.Count > 4)
+        if (_grid.path.Count > 4)
         {
             _playerInputs.MoveAxisForward = 1;
         }
