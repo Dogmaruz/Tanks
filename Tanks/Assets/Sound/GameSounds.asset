@@ -15,3 +15,5 @@ MonoBehaviour:
   m_Sounds:
   - {fileID: 8300000, guid: be1f33e35bd57c94683e40cc8b34d2dc, type: 3}
   - {fileID: 8300000, guid: 28ccd20624f57be4887b7654433d747f, type: 3}
+  - {fileID: 8300000, guid: eea797948c5fcfa43b2150916ccbc71d, type: 3}
+  - {fileID: 8300000, guid: a9362aa2f18974f47a6dc249c3aa232f, type: 3}

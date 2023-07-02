@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class FP_CharacterController : Destructible
 {
-    [SerializeField] protected float m_forceSpeed; // Скорость движения.
+    [SerializeField] protected float m_moveSpeed; // Скорость движения.
 
     //[SerializeField] private Animator m_animator;
 
@@ -13,6 +13,19 @@ public class FP_CharacterController : Destructible
     [SerializeField] protected float m_tankRotationSpeed;
 
     [SerializeField] protected float m_towerRotationSpeed;
+
+    [Header("Visual Settings")]
+    [SerializeField] protected TankAsset m_tankAsset;
+
+    [SerializeField] protected SpriteRenderer m_hull;
+
+    [SerializeField] protected SpriteRenderer m_tower;
+
+    [SerializeField] protected SpriteRenderer m_gun;
+
+    [SerializeField] protected SpriteRenderer m_gunConnector;
+
+    [SerializeField] protected SpriteRenderer m_aim; 
 
     private int m_SecondaryAmmo; //Вторичная турель.
     public int SecondaryAmmo => m_SecondaryAmmo;
@@ -30,6 +43,25 @@ public class FP_CharacterController : Destructible
         m_Turrets = GetComponentsInChildren<Turret>();
 
         m_SecondaryAmmo = m_MaxAmmo;
+
+        Initialize();
+    }
+
+    private void Initialize()
+    {
+        m_hull.sprite = m_tankAsset.Hull;
+
+        m_tower.sprite = m_tankAsset.Tower;
+
+        m_gun.sprite = m_tankAsset.Gun;
+
+        m_gunConnector.sprite = m_tankAsset.GunConnector;
+
+        m_moveSpeed = m_tankAsset.moveSpeed;
+
+        SetHitpoints(m_tankAsset.HitPoints);
+
+        SetScoreValue(m_tankAsset.ScoreValue);
     }
 
     public virtual void UpdateInputs(ref PlayerInputs playerInputs)
@@ -51,7 +83,7 @@ public class FP_CharacterController : Destructible
         }
 
         // Перемещение танка
-        Vector2 movement = transform.up * playerInputs.MoveAxisForward * m_forceSpeed;
+        Vector2 movement = transform.up * playerInputs.MoveAxisForward * m_moveSpeed;
 
         _rigibody.velocity = movement;
 
@@ -61,8 +93,9 @@ public class FP_CharacterController : Destructible
         _rigibody.rotation -= rotation;
 
         //Поворот башни
-
         Vector3 mousePosition = playerInputs.MousePosition;
+
+        m_aim.transform.position = new Vector2(mousePosition.x, mousePosition.y);
 
         Vector2 direction = mousePosition - m_TowerTransform.position;
 
@@ -107,16 +140,13 @@ public class FP_CharacterController : Destructible
 
     public virtual void FixedUpdateInputs(ref PlayerInputs playerInputs)
     {
-
         //Смена анимации.
         ChangeAnimation();
-
     }
 
     // Смена анимации.
     private void ChangeAnimation()
     {
-
 
     }
 

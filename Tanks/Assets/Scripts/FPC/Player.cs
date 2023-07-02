@@ -1,5 +1,5 @@
 using UnityEngine;
-
+using UnityEngine.SceneManagement;
 
 public class Player : SingletonBase<Player>, IDependency<FP_MovementController>
 {
@@ -27,7 +27,9 @@ public class Player : SingletonBase<Player>, IDependency<FP_MovementController>
     //Вызывается при уничтожении игрока.
     private void OnPlayerDeath()
     {
-        Invoke(nameof(Respawn), 0.3f);
+        //Invoke(nameof(Respawn), 0.3f);
+
+        SceneManager.LoadScene("Main_Menu");
     }
 
     /// <summary>

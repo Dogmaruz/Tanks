@@ -1,39 +1,50 @@
 using UnityEngine;
+using static UnityEngine.LightAnchor;
 
 public class AI_CharacterController : FP_CharacterController
 {
+    Vector3 gunTarget;
+
     public override void UpdateInputs(ref PlayerInputs playerInputs)
     {
         // Атака.
         if (playerInputs.MouseButtonPrimaryDown)
         {
+            gunTarget = Player.Instance.CharacterController.transform.position - m_TowerTransform.position;
+
             _mode = TurretMode.Primary;
 
             Fire();
         }
+        else
+        {
+            gunTarget = playerInputs.Direction;
+        }
 
         // Перемещение танка
-        Vector2 movement = transform.up * playerInputs.MoveAxisForward * m_forceSpeed;
+        Vector2 movement = transform.up * playerInputs.MoveAxisForward * m_moveSpeed;
 
         _rigibody.velocity = movement;
 
         // Поворот танка
-        float angle = Mathf.Atan2(playerInputs.Direction.y, playerInputs.Direction.x) * Mathf.Rad2Deg - 90;
+        if (playerInputs.Direction != Vector3.zero)
+        {
 
-        Quaternion target = Quaternion.AngleAxis(angle, Vector3.forward);
+            float angle = Mathf.Atan2(playerInputs.Direction.y, playerInputs.Direction.x) * Mathf.Rad2Deg - 90;
 
-        transform.rotation = Quaternion.Slerp(transform.rotation, target, m_tankRotationSpeed * Time.deltaTime);
+            Quaternion target = Quaternion.AngleAxis(angle, Vector3.forward);
 
-        //Поворот башни
+            transform.rotation = Quaternion.Slerp(transform.rotation, target, m_tankRotationSpeed * Time.deltaTime);
+        }
 
-        Vector3 playerPosition = Player.Instance.CharacterController.transform.position;
+        // Поворот башни
 
-        Vector2 direction = playerPosition - m_TowerTransform.position;
+        Vector2 direction = gunTarget;
 
-        angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg - 90;
+        float angleTower = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg - 90;
 
-        target = Quaternion.AngleAxis(angle, Vector3.forward);
+        Quaternion targetTower = Quaternion.AngleAxis(angleTower, Vector3.forward);
 
-        m_TowerTransform.rotation = Quaternion.Slerp(m_TowerTransform.rotation, target, m_towerRotationSpeed * Time.deltaTime);
+        m_TowerTransform.rotation = Quaternion.Slerp(m_TowerTransform.rotation, targetTower, m_towerRotationSpeed * Time.deltaTime);
     }
 }

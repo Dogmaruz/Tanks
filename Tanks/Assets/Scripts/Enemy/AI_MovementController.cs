@@ -12,6 +12,8 @@ public class AI_MovementController : FP_MovementController, IDependency<A_Grid>
 
     [SerializeField] private Color m_color;
 
+    [SerializeField] private bool m_IsWalkable;
+
     private A_Grid m_grid;
 
     private Pathfinding _pathfinding;
@@ -36,7 +38,9 @@ public class AI_MovementController : FP_MovementController, IDependency<A_Grid>
     {
         if (Player.Instance.CharacterController == null) return;
 
+
         FintMovePosition();
+
 
         FindAttackTarget();
     }
@@ -93,7 +97,7 @@ public class AI_MovementController : FP_MovementController, IDependency<A_Grid>
         }
     }
 
-    
+
     private void FindAttackTarget()
     {
         //Поиск цели.
@@ -134,6 +138,14 @@ public class AI_MovementController : FP_MovementController, IDependency<A_Grid>
         }
 
         _playerInputs.Direction = direction;
+
+
+        if (!m_IsWalkable)
+        {
+            _playerInputs.MoveAxisForward = 0;
+
+            _playerInputs.Direction = Vector3.zero;
+        }
 
         // Применение настроек ввода
         _characterAI.UpdateInputs(ref _playerInputs);

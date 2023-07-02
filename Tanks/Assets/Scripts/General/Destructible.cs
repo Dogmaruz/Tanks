@@ -82,7 +82,10 @@ public class Destructible : Entity
     /// </summary>
     protected virtual void OnDeath()
     {
-        //Instantiate(m_ImpactEffect, transform.position, Quaternion.identity);
+        if (m_ImpactEffect != null)
+        {
+            Instantiate(m_ImpactEffect, transform.position, Quaternion.identity);
+        }
 
         Destroy(gameObject);
 
@@ -91,15 +94,24 @@ public class Destructible : Entity
 
     public void SetHitpoints(int hitpoints)
     {
-        m_HitPoints = hitpoints;
+        m_CurrentHitPoint = hitpoints;
+
+        EventOnUpdateHP?.Invoke(m_CurrentHitPoint);
+    }
+
+    public void AddHitpoints(int hitpoints)
+    {
+        m_CurrentHitPoint = Mathf.Clamp(m_CurrentHitPoint + hitpoints, 0, HitPoints);
+
+        EventOnUpdateHP?.Invoke(m_CurrentHitPoint);
     }
 
     #region Teams
 
-        /// <summary>
-        /// Статическое поле всех объектов типа Destructible.
-        /// </summary>
-        private static HashSet<Destructible> m_AllDestructibles;
+    /// <summary>
+    /// Статическое поле всех объектов типа Destructible.
+    /// </summary>
+    private static HashSet<Destructible> m_AllDestructibles;
     public static IReadOnlyCollection<Destructible> AllDestructible => m_AllDestructibles;
 
     //Добавляет в коллекцию обект при создании.
@@ -119,7 +131,7 @@ public class Destructible : Entity
         m_AllDestructibles?.Remove(this);
     }
 
-    protected void Use(EnemyAsset asset)
+    protected void Use(TankAsset asset)
     {
         m_HitPoints = asset.HitPoints;
 
@@ -138,6 +150,11 @@ public class Destructible : Entity
     //Задает значение очков за уничтожение.
     [SerializeField] private int m_ScoreValue;
     public int ScoreValue => m_ScoreValue;
+
+    public void SetScoreValue(int scoreValue)
+    {
+        m_ScoreValue = scoreValue;
+    }
 
     #endregion
 }
