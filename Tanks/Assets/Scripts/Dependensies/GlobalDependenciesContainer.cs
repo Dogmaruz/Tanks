@@ -3,7 +3,7 @@ using UnityEngine.SceneManagement;
 
 public class GlobalDependenciesContainer : Dependency
 {
-    //[SerializeField] private GamePause m_gamePause;
+    [SerializeField] private GamePause m_gamePause;
 
     [SerializeField] private LevelSequenceController m_levelSequenceController;
 
@@ -33,7 +33,7 @@ public class GlobalDependenciesContainer : Dependency
 
     protected override void BindFoundMonoBehaviour(MonoBehaviour mono)
     {
-        //Bind<GamePause>(mono, m_gamePause);
+        Bind<GamePause>(mono, m_gamePause);
 
         Bind<LevelSequenceController>(mono, m_levelSequenceController);
 

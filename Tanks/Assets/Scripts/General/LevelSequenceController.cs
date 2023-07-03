@@ -39,8 +39,7 @@ public class LevelSequenceController : SingletonBase<LevelSequenceController>
     {
         LastLevelResult = success;
 
-        //Временная заглушка пока один тестовый уровень
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        Player.Instance.ShowResultPanel(success);
     }
 
     //Переход на другой  уровень если он есть, а иначе завершение эпизода и выход в главное меню.

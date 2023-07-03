@@ -1,7 +1,6 @@
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
-public class Player : SingletonBase<Player>, IDependency<FP_MovementController>
+public class Player : SingletonBase<Player>, IDependency<FP_MovementController>, IDependency<LevelResultController>
 {
     [SerializeField] private int m_HP;
 
@@ -12,9 +11,16 @@ public class Player : SingletonBase<Player>, IDependency<FP_MovementController>
 
     private FP_MovementController _movementController;
 
+    private LevelResultController _levelResultController;
+
     public void Construct(FP_MovementController obj)
     {
         _movementController = obj;
+    }
+
+    public void Construct(LevelResultController obj)
+    {
+        _levelResultController = obj;
     }
 
     protected override void Awake()
@@ -27,9 +33,12 @@ public class Player : SingletonBase<Player>, IDependency<FP_MovementController>
     //Вызывается при уничтожении игрока.
     private void OnPlayerDeath()
     {
-        //Invoke(nameof(Respawn), 0.3f);
+        ShowResultPanel(false);
+    }
 
-        SceneManager.LoadScene("Main_Menu");
+    public void ShowResultPanel(bool success)
+    {
+        _levelResultController.ShowResults(success);
     }
 
     /// <summary>
