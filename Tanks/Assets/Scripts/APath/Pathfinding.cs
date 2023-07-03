@@ -6,6 +6,8 @@ public class Pathfinding : MonoBehaviour, IDependency<A_Grid>
 {
     private A_Grid _grid;
 
+    public List<Node> Path = new List<Node>();
+
     public void Construct(A_Grid obj)
     {
         _grid = obj;
@@ -96,6 +98,8 @@ public class Pathfinding : MonoBehaviour, IDependency<A_Grid>
         path.Reverse();
 
         _grid.path = path;
+
+        Path = path;
     }
 
     // Диагональный метод

@@ -26,13 +26,6 @@ public class HPSliderController : MonoBehaviour
         m_HPProgressBar.color = Color.Lerp(Color.red, Color.green, m_HPProgressBar.fillAmount);
     }
 
-    public void UpdateShip(FP_CharacterController caracter)
-    {
-        m_character = caracter;
-
-        m_character.EventOnUpdateHP?.AddListener(UpdateHPProgress);
-    }
-
     private void OnDestroy()
     {
         m_character.EventOnUpdateHP?.RemoveListener(UpdateHPProgress);

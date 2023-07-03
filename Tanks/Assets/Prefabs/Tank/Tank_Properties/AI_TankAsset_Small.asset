@@ -15,7 +15,6 @@ MonoBehaviour:
   moveSpeed: 3
   HitPoints: 100
   ScoreValue: 5
-  Damage: 10
   Hull: {fileID: 21300000, guid: 519db26ac7648064fabb6f100ecfe3db, type: 3}
   Tower: {fileID: 21300000, guid: d4560c6d6fc01cb42a07c7c64db28fde, type: 3}
   Gun: {fileID: 21300000, guid: 6c55d1b41192f50409d83ab5e5953d29, type: 3}

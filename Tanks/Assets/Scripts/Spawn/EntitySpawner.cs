@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class EntitySpawner : MonoBehaviour, IDependency<A_Grid>
@@ -82,6 +83,8 @@ public class EntitySpawner : MonoBehaviour, IDependency<A_Grid>
 
                     if (ai != null)
                     {
+                        _grid.CreateGrid();
+
                         ai.Grid = _grid;
 
                         ai.GetComponent<Pathfinding>().SetGrid(_grid);
@@ -95,5 +98,6 @@ public class EntitySpawner : MonoBehaviour, IDependency<A_Grid>
 
             walkableNodes.Remove(node);
         }
+        _grid.CreateGrid();
     }
 }

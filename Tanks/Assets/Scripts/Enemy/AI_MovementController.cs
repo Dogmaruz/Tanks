@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using UnityEditor;
 using UnityEngine;
 
 public class AI_MovementController : FP_MovementController, IDependency<A_Grid>
@@ -23,30 +22,36 @@ public class AI_MovementController : FP_MovementController, IDependency<A_Grid>
 
     private Vector3 _patrolTarget;
 
+    private bool _isTarget;
+
+    private float _positionTimer;
 
     public void Construct(A_Grid obj)
     {
         _grid = obj;
     }
 
-    private void Awake()
+    private void Start()
     {
         _pathfinding = GetComponent<Pathfinding>();
 
         _characterAI = GetComponent<AI_CharacterController>();
+
+        _isTarget = false;
+
+        _positionTimer = 0;
     }
 
     protected override void CharacterInput()
     {
         if (Player.Instance.CharacterController == null) return;
 
-        FintMovePosition();
-
+        FindMovePosition();
 
         FindAttackTarget();
     }
 
-    private void FintMovePosition()
+    private void FindMovePosition()
     {
         //Поиск цели.
         var patrolEnter = Physics2D.OverlapCircle(transform.position, m_patrolRadius, m_layerMask);
@@ -59,42 +64,72 @@ public class AI_MovementController : FP_MovementController, IDependency<A_Grid>
             {
                 PathFinder(Player.Instance.CharacterController.transform.position);
             }
+            else
+            {
+                _isTarget = false;
+            }
+        }
+
+        if (_isTarget == true)
+        {
+            PathFinder(_patrolTarget);
         }
         else
         {
-            if (_patrolTarget != Vector3.zero)
-            {
-                PathFinder(_patrolTarget);
-            }
-            else
-            {
-                List<Node> walkableNodes = _grid.GetWalkableNodes();
+            List<Node> walkableNodes = _grid.GetWalkableNodes();
 
-                Node node = walkableNodes[Random.Range(0, walkableNodes.Count)];
+            Node node = walkableNodes[Random.Range(0, walkableNodes.Count - 1)];
 
-                _patrolTarget = node.worldPosition;
-            }
+            _patrolTarget = node.worldPosition;
+
+            _isTarget = true;
         }
     }
 
     private void PathFinder(Vector3 target)
     {
-        _pathfinding.FindPath(transform.position, target);
+        if (_pathfinding.Path.Count <= 0)
+        {
+            _pathfinding.FindPath(transform.position, target);
+        }
 
-        if (_grid.path != null && _grid.path.Count > 0)
+        if (_pathfinding.Path.Count > 0)
         {
             // Перемещаем противника к следующему узлу на пути
-            Vector3 targetPosition = _grid.path[0].worldPosition;
+            Vector3 targetPosition = _pathfinding.Path[0].worldPosition;
 
             Vector3 moveDirection = (targetPosition - transform.position).normalized;
 
             Move(moveDirection);
 
             // Если противник достиг следующей точки, удаляем ее из пути
-            if (Vector3.Distance(transform.position, targetPosition) < 0.1f)
+            if (Vector3.Distance(transform.position, targetPosition) < 0.5f)
             {
-                _grid.path.RemoveAt(0);
+                _pathfinding.Path.RemoveAt(0);
+
+                _positionTimer = 0;
             }
+            else
+            {
+                _positionTimer += Time.deltaTime;
+            }
+
+            if (_positionTimer > 1)
+            {
+                _isTarget = false;
+
+                _positionTimer = 0;
+
+                _pathfinding.Path.Clear();
+            }
+        }
+        else
+        {
+            _isTarget = false;
+
+            _positionTimer = 0;
+
+            _pathfinding.Path.Clear();
         }
     }
 
@@ -127,19 +162,20 @@ public class AI_MovementController : FP_MovementController, IDependency<A_Grid>
     {
         if (_characterAI == null) return;
 
-        if (_grid.path.Count > 4)
+        if (_pathfinding.Path.Count > 1)
         {
             _playerInputs.MoveAxisForward = 1;
+
+            _playerInputs.Direction = direction;
         }
         else
         {
             _playerInputs.MoveAxisForward = 0;
 
-            _patrolTarget = Vector3.zero;
+            _isTarget = false;
+
+            _pathfinding.Path.Clear();
         }
-
-        _playerInputs.Direction = direction;
-
 
         if (!m_IsWalkable)
         {
@@ -156,9 +192,22 @@ public class AI_MovementController : FP_MovementController, IDependency<A_Grid>
 
     private void OnDrawGizmos()
     {
-        Handles.color = m_color;
+        //Handles.color = m_color;
 
-        Handles.DrawSolidDisc(transform.position, transform.forward, m_fireRadius);
+        //Handles.DrawSolidDisc(transform.position, transform.forward, m_fireRadius);
+
+        //Отрисовка пути
+
+        if (_pathfinding)
+        {
+            foreach (Node n in _pathfinding.Path)
+            {
+                Gizmos.color = Color.black;
+
+                Gizmos.DrawCube(n.worldPosition, Vector3.one * (_grid.nodeRadius * 2 - 0.1f));
+            }
+        }
     }
 #endif
+
 }

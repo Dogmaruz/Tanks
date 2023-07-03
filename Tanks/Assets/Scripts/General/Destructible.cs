@@ -131,13 +131,6 @@ public class Destructible : Entity
         m_AllDestructibles?.Remove(this);
     }
 
-    protected void Use(TankAsset asset)
-    {
-        m_HitPoints = asset.HitPoints;
-
-        m_ScoreValue = asset.ScoreValue;
-    }
-
     public const int TeamIdNeutral = 0;
 
     [SerializeField] private int m_TeamId;

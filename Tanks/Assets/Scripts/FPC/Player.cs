@@ -30,6 +30,11 @@ public class Player : SingletonBase<Player>, IDependency<FP_MovementController>,
         Respawn();
     }
 
+    private void OnDestroy()
+    {
+        m_characterController.EventOnDeath?.RemoveListener(OnPlayerDeath);
+    }
+
     //Вызывается при уничтожении игрока.
     private void OnPlayerDeath()
     {
