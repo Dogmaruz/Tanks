@@ -6303,56 +6303,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4482608552210284634, guid: 52631b8c42b1e4745a4c114b03d45e29, type: 3}
   m_PrefabInstance: {fileID: 996709668}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &668969199
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 668969201}
-  - component: {fileID: 668969200}
-  m_Layer: 0
-  m_Name: Repair Spawner
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &668969200
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 668969199}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 62894442e268b1d4aa967b1180ffd2ca, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_entityPrefabs:
-  - {fileID: 3936793534953413141, guid: df3f6957ad57f024d93b3bff4cbc22e5, type: 3}
-  m_spawnMode: 0
-  m_numSpawns: 3
-  m_respawnTime: 0
-  m_maxDistanceSpawnToPlayer: 17
---- !u!4 &668969201
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 668969199}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 2022945409}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &676648376
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -10322,7 +10272,7 @@ GameObject:
   - component: {fileID: 1143751241}
   - component: {fileID: 1143751240}
   m_Layer: 0
-  m_Name: Ammo Spawner
+  m_Name: Entity Spawner
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10342,8 +10292,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_entityPrefabs:
   - {fileID: 3936793534953413141, guid: fcc009d11a5831b449cb48bd7e631581, type: 3}
+  - {fileID: 3936793534953413141, guid: df3f6957ad57f024d93b3bff4cbc22e5, type: 3}
   m_spawnMode: 0
-  m_numSpawns: 2
+  m_numSpawns: 6
   m_respawnTime: 0
   m_maxDistanceSpawnToPlayer: 17
 --- !u!4 &1143751241
@@ -10894,7 +10845,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2022945409}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &1221780299 stripped
 Transform:
@@ -17553,7 +17504,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2022945409}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &2009552865 stripped
 Transform:
@@ -17899,7 +17850,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1143751241}
-  - {fileID: 668969201}
   - {fileID: 1214659856}
   - {fileID: 2001515921}
   m_Father: {fileID: 0}

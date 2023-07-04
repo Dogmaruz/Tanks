@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class EntitySpawner : MonoBehaviour, IDependency<A_Grid>
@@ -57,14 +56,14 @@ public class EntitySpawner : MonoBehaviour, IDependency<A_Grid>
     //Спавн объектов.
     private void SpawnEntities()
     {
-        int index = Random.Range(0, m_entityPrefabs.Length);
-
         List<Node> walkableNodes = _grid.GetWalkableNodes();
 
         int entitiesSpawned = 0;
 
         while (entitiesSpawned < m_numSpawns && walkableNodes.Count > 0)
         {
+            int index = Random.Range(0, m_entityPrefabs.Length);
+
             Node node = walkableNodes[Random.Range(0, walkableNodes.Count)];
 
             if (node.IsActive == false)
@@ -79,15 +78,15 @@ public class EntitySpawner : MonoBehaviour, IDependency<A_Grid>
                 {
                     GameObject newEntity = Instantiate(m_entityPrefabs[index].gameObject);
 
-                    var ai = newEntity.GetComponent<AI_MovementController>();
+                    var enemy = newEntity.GetComponent<AI_MovementController>();
 
-                    if (ai != null)
+                    if (enemy != null)
                     {
                         _grid.CreateGrid();
 
-                        ai.Grid = _grid;
+                        enemy.Grid = _grid;
 
-                        ai.GetComponent<Pathfinding>().SetGrid(_grid);
+                        enemy.GetComponent<Pathfinding>().SetGrid(_grid);
                     }
 
                      newEntity.transform.position = target;
