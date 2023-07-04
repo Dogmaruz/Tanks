@@ -1092,6 +1092,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: UI HP Slider
       objectReference: {fileID: 0}
+    - target: {fileID: 9013180461968367885, guid: 734b8f4a285ffe64ab1d7a049eb75573, type: 3}
+      propertyPath: m_Maskable
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 734b8f4a285ffe64ab1d7a049eb75573, type: 3}
 --- !u!224 &2426426953453294211 stripped

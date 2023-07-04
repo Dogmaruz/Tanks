@@ -97,7 +97,7 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
-  m_LightingDataAsset: {fileID: 0}
+  m_LightingDataAsset: {fileID: 112000000, guid: d78e5bdbcbfd76a4898cf74fc6d9edd5, type: 2}
   m_LightingSettings: {fileID: 0}
 --- !u!196 &4
 NavMeshSettings:
@@ -5720,7 +5720,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &619394801
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5741,7 +5741,7 @@ MonoBehaviour:
   m_Intensity: 1
   m_LightVolumeIntensity: 1
   m_LightVolumeIntensityEnabled: 0
-  m_ApplyToSortingLayers: 00000000
+  m_ApplyToSortingLayers: 0000000015d068ff19b96aa4c198d2a1
   m_LightCookieSprite: {fileID: 0}
   m_DeprecatedPointLightCookieSprite: {fileID: 0}
   m_LightOrder: 0
@@ -10916,6 +10916,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4477137611990568773, guid: ce9c2f9a2d561c048ad07a5767d96e5c, type: 3}
+      propertyPath: Loop
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ce9c2f9a2d561c048ad07a5767d96e5c, type: 3}
 --- !u!1001 &1225330588
@@ -15423,6 +15427,14 @@ PrefabInstance:
     - target: {fileID: 1651913618, guid: c8dc9d760f4dfcc4abcfaaf2906b91e1, type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1651913620, guid: c8dc9d760f4dfcc4abcfaaf2906b91e1, type: 3}
+      propertyPath: m_SortingLayer
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1651913620, guid: c8dc9d760f4dfcc4abcfaaf2906b91e1, type: 3}
+      propertyPath: m_SortingLayerID
+      value: -9908203
       objectReference: {fileID: 0}
     - target: {fileID: 5119209036879643644, guid: c8dc9d760f4dfcc4abcfaaf2906b91e1, type: 3}
       propertyPath: m_levelResultController

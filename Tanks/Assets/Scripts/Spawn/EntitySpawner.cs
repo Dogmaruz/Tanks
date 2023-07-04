@@ -97,6 +97,7 @@ public class EntitySpawner : MonoBehaviour, IDependency<A_Grid>
 
             walkableNodes.Remove(node);
         }
+
         _grid.CreateGrid();
     }
 }
