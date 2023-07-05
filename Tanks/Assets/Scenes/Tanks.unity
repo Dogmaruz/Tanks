@@ -10882,6 +10882,10 @@ PrefabInstance:
       propertyPath: m_Background
       value: 
       objectReference: {fileID: 8300000, guid: 7b14e63ebfce93e44bd52ebcd58ce2f8, type: 3}
+    - target: {fileID: 4477137611990568770, guid: ce9c2f9a2d561c048ad07a5767d96e5c, type: 3}
+      propertyPath: m_DoNotDestroyOnLoad
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4477137611990568771, guid: ce9c2f9a2d561c048ad07a5767d96e5c, type: 3}
       propertyPath: m_Name
       value: Background_Sound
