@@ -3,7 +3,9 @@ using UnityEngine;
 
 public class ShakeCamera : SingletonBase<ShakeCamera>
 {
-    private Camera _camera; 
+    private Camera _camera;
+
+    private Tween _tween;
 
     void Start()
     {
@@ -12,6 +14,13 @@ public class ShakeCamera : SingletonBase<ShakeCamera>
 
     public void Shake()
     {
-        _camera.transform.DOShakePosition(1f);
+        _camera.DOKill();
+
+        _tween = _camera.transform.DOShakePosition(1f);
+    }
+
+    private void OnDestroy()
+    {
+        _tween.Kill();
     }
 }
