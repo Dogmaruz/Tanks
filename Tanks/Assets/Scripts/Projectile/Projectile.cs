@@ -36,7 +36,7 @@ public class Projectile : Entity
         {
             OnHit(hit);
 
-            OnProjectileLifeEnd(hit.collider, hit.point);
+            OnProjectileLifeEnd(hit);
         }
 
         m_Timer += Time.deltaTime;
@@ -53,9 +53,7 @@ public class Projectile : Entity
 
     protected virtual void OnHit(RaycastHit2D hit)
     {
-        Destructible destructible = hit.collider.transform.root.GetComponent<Destructible>();
-
-        if (destructible == null) destructible = hit.collider.GetComponentInParent<Destructible>();
+        Destructible destructible = DeterminingHit(hit);
 
         if (destructible != null && destructible != m_ParentDestructible)
         {
@@ -67,12 +65,25 @@ public class Projectile : Entity
         }
     }
 
+    private Destructible DeterminingHit(RaycastHit2D hit)
+    {
+        Destructible destructible = hit.collider.transform.root.GetComponent<Destructible>();
+
+        if (destructible == null) destructible = hit.collider.GetComponentInParent<Destructible>();
+        return destructible;
+    }
+
     //Уничтожение с вызовом эфекта после попадания.
-    private void OnProjectileLifeEnd(Collider2D collider, Vector2 pos)
+    private void OnProjectileLifeEnd(RaycastHit2D hit)
     {
         if (m_ImpactEffectPrefab)
         {
             Instantiate(m_ImpactEffectPrefab, transform.position, Quaternion.identity);
+        }
+
+        if (m_ParentDestructible.Nickname == "Player")
+        {
+            ShakeCamera.Instance.Shake();
         }
 
         m_EventOnDeath?.Invoke();
