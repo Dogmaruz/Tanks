@@ -177,6 +177,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3961739727161230276}
+  - component: {fileID: 985930704131066196}
   m_Layer: 0
   m_Name: Tank
   m_TagString: Untagged
@@ -206,6 +207,33 @@ Transform:
   m_Father: {fileID: 5055924724388116186}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &985930704131066196
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3961739727161230277}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7db70e0ea77f5ac47a8f4565a9406397, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ShadowGroup: 0
+  m_ComponentVersion: 1
+  m_HasRenderer: 0
+  m_UseRendererSilhouette: 1
+  m_CastsShadows: 1
+  m_SelfShadows: 0
+  m_ApplyToSortingLayers: 15d068ff
+  m_ShapePath:
+  - {x: -1.0441978, y: -0.9938091, z: 0}
+  - {x: -1.0441978, y: 0.9736537, z: 0}
+  - {x: 1.0240424, y: 0.9736537, z: 0}
+  - {x: 1.0240424, y: -0.9837314, z: 0}
+  m_ShapePathHash: 1454597789
+  m_Mesh: {fileID: 0}
+  m_InstanceId: -35980
 --- !u!1 &3961739727424777213
 GameObject:
   m_ObjectHideFlags: 0
