@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Player : SingletonBase<Player>, IDependency<FP_MovementController>, IDependency<LevelResultController>
+public class Player : SingletonBase<Player>, IDependency<FP_MovementController>, IDependency<LevelResultController>, IDependency<ShakeCamera>
 {
     [SerializeField] private int m_HP;
 
@@ -12,6 +12,13 @@ public class Player : SingletonBase<Player>, IDependency<FP_MovementController>,
     private FP_MovementController _movementController;
 
     private LevelResultController _levelResultController;
+
+    private ShakeCamera _shakeCamera;
+
+    public void Construct(ShakeCamera obj)
+    {
+        _shakeCamera = obj;
+    }
 
     public void Construct(FP_MovementController obj)
     {
@@ -60,6 +67,13 @@ public class Player : SingletonBase<Player>, IDependency<FP_MovementController>,
             m_characterController.EventOnDeath?.AddListener(OnPlayerDeath);
 
             m_characterController.SetHitpoints(m_HP);
+
+            var turrets = m_characterController.GetComponentsInChildren<Turret>();
+
+            foreach (var turret in turrets)
+            {
+                turret.SetShakeCamera(_shakeCamera);
+            }
 
             _movementController.SetTargetCharacterController(m_characterController);
         }

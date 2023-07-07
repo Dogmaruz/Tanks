@@ -13,6 +13,8 @@ public class Turret : MonoBehaviour
     private float m_RefireTimer;
     public bool CanFire => m_RefireTimer <= 0;
 
+    private ShakeCamera _shakeCamera;
+
     private FP_CharacterController m_character;
 
     private void Start()
@@ -46,6 +48,8 @@ public class Turret : MonoBehaviour
 
         projectile.transform.up = transform.up;
 
+        projectile.SetShakeCamera(_shakeCamera);
+
         if (m_character)
         {//Задает родителя сделавшего выстрел.
             projectile.SetParentShooter(m_character);
@@ -67,5 +71,10 @@ public class Turret : MonoBehaviour
         m_RefireTimer = 0;
 
         m_TurretProperties = props;
+    }
+
+    public void SetShakeCamera(ShakeCamera shakeCamera)
+    {
+        _shakeCamera = shakeCamera;
     }
 }

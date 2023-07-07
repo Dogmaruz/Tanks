@@ -22,6 +22,8 @@ public class Projectile : Entity
     [SerializeField] private UnityEvent<Destructible> m_EventOnHit;
     public UnityEvent<Destructible> EventOnHit => m_EventOnHit;
 
+    private ShakeCamera _shakeCamera;
+
     private void Update()
     {
         float stepLenght = Time.deltaTime * m_Velocity;
@@ -83,7 +85,7 @@ public class Projectile : Entity
 
         if (m_ParentDestructible.Nickname == "Player")
         {
-            ShakeCamera.Instance.Shake();
+            _shakeCamera.Shake();
         }
 
         m_EventOnDeath?.Invoke();
@@ -108,6 +110,11 @@ public class Projectile : Entity
         {
             Player.Instance.AddScore(destructible.ScoreValue);
         }
+    }
+
+    public void SetShakeCamera(ShakeCamera shakeCamera)
+    {
+        _shakeCamera = shakeCamera;
     }
 }
 

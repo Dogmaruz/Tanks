@@ -5961,8 +5961,8 @@ TilemapRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -9908203
+  m_SortingLayer: -3
   m_SortingOrder: -1
   m_ChunkSize: {x: 32, y: 32, z: 32}
   m_ChunkCullingBounds: {x: 0.5, y: 0.5, z: 0}
@@ -6050,6 +6050,7 @@ MonoBehaviour:
   m_movementController: {fileID: 6109700880662680024}
   m_grid: {fileID: 684343729}
   m_levelResultController: {fileID: 0}
+  m_shakeCamera: {fileID: 0}
 --- !u!1 &5119209037805280205
 GameObject:
   m_ObjectHideFlags: 0

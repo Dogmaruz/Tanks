@@ -1,7 +1,7 @@
 using DG.Tweening;
 using UnityEngine;
 
-public class ShakeCamera : SingletonBase<ShakeCamera>
+public class ShakeCamera : MonoBehaviour
 {
     private Camera _camera;
 
