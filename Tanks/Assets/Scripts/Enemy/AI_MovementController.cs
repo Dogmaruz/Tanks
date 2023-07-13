@@ -1,7 +1,8 @@
 using System.Collections.Generic;
 using UnityEngine;
+using Zenject;
 
-public class AI_MovementController : FP_MovementController, IDependency<A_Grid>
+public class AI_MovementController : FP_MovementController
 {
     [SerializeField] private float m_fireRadius;
 
@@ -13,9 +14,6 @@ public class AI_MovementController : FP_MovementController, IDependency<A_Grid>
 
     [SerializeField] private bool m_IsWalkable;
 
-    private A_Grid _grid;
-    public A_Grid Grid { get => _grid; set => _grid = value; }
-
     private Pathfinding _pathfinding;
 
     private AI_CharacterController _characterAI;
@@ -26,9 +24,16 @@ public class AI_MovementController : FP_MovementController, IDependency<A_Grid>
 
     private float _positionTimer;
 
-    public void Construct(A_Grid obj)
+    private A_Grid _grid;
+
+    private Player _player;
+
+    [Inject]
+    public void Construct(A_Grid grid, Player player)
     {
-        _grid = obj;
+        _player = player;
+
+        _grid = grid;
     }
 
     private void Start()
@@ -44,7 +49,7 @@ public class AI_MovementController : FP_MovementController, IDependency<A_Grid>
 
     protected override void CharacterInput()
     {
-        if (Player.Instance.CharacterController == null) return;
+        if (_player.CharacterController == null) return;
 
         FindMovePosition();
 
@@ -62,7 +67,7 @@ public class AI_MovementController : FP_MovementController, IDependency<A_Grid>
 
             if (destructible)
             {
-                PathFinder(Player.Instance.CharacterController.transform.position);
+                PathFinder(_player.CharacterController.transform.position);
             }
             else
             {
@@ -72,6 +77,8 @@ public class AI_MovementController : FP_MovementController, IDependency<A_Grid>
 
         if (_isTarget == true)
         {
+            if (_patrolTarget == null) return;
+
             PathFinder(_patrolTarget);
         }
         else

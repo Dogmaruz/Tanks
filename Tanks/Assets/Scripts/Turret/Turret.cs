@@ -1,21 +1,28 @@
 ﻿using UnityEngine;
+using Zenject;
 
 public class Turret : MonoBehaviour
 {
-    [SerializeField] private TurretMode m_Mode;
-    public TurretMode Mode => m_Mode;
+    [SerializeField] private TurretMode m_mode;
+    public TurretMode Mode => m_mode;
 
-    [SerializeField] private TurretProperties m_TurretProperties; //Свойства турели.
-    public TurretProperties TurretProperties => m_TurretProperties;
+    [SerializeField] private TurretProperties m_turretProperties; //Свойства турели.
+    public TurretProperties TurretProperties => m_turretProperties;
 
-    [SerializeField] private Transform m_BulletSpawnPoint;
+    [SerializeField] private Transform m_bulletSpawnPoint;
 
-    private float m_RefireTimer;
-    public bool CanFire => m_RefireTimer <= 0;
-
-    private ShakeCamera _shakeCamera;
+    private float m_refireTimer;
+    public bool CanFire => m_refireTimer <= 0;
 
     private FP_CharacterController m_character;
+
+    private DiContainer _diContainer;
+
+    [Inject]
+    public void Construct(DiContainer diContainer)
+    {
+        _diContainer = diContainer;
+    }
 
     private void Start()
     {
@@ -24,40 +31,38 @@ public class Turret : MonoBehaviour
 
     private void Update()
     {
-        if (m_RefireTimer > 0)
+        if (m_refireTimer > 0)
         {
-            m_RefireTimer -= Time.deltaTime;
+            m_refireTimer -= Time.deltaTime;
         }
     }
 
     //Производит выстрел.
     public void Fire()
     {
-        if (m_TurretProperties == null) return;
+        if (m_turretProperties == null) return;
 
-        if (m_RefireTimer > 0) return;
+        if (m_refireTimer > 0) return;
 
-        if (m_TurretProperties.Mode == TurretMode.Secondary)
+        if (m_turretProperties.Mode == TurretMode.Secondary)
         {
-            if (m_character.DrawAmmo(m_TurretProperties.AmoUsage) == false) return;
+            if (m_character.DrawAmmo(m_turretProperties.AmoUsage) == false) return;
         }
 
-        Projectile projectile = Instantiate(m_TurretProperties.ProjectilePrefab).GetComponent<Projectile>();
+        Projectile projectile = _diContainer.InstantiatePrefab(m_turretProperties.ProjectilePrefab).GetComponent<Projectile>();
 
-        projectile.transform.position = m_BulletSpawnPoint.position;
+        projectile.transform.position = m_bulletSpawnPoint.position;
 
         projectile.transform.up = transform.up;
-
-        projectile.SetShakeCamera(_shakeCamera);
 
         if (m_character)
         {//Задает родителя сделавшего выстрел.
             projectile.SetParentShooter(m_character);
         }
 
-        m_RefireTimer = m_TurretProperties.RateOfFire;
+        m_refireTimer = m_turretProperties.RateOfFire;
 
-        Sound sound = m_TurretProperties.ProjectileSound;
+        Sound sound = m_turretProperties.ProjectileSound;
 
         sound.Play();
     }
@@ -66,15 +71,10 @@ public class Turret : MonoBehaviour
     //Задает свойства турели.
     public void AssignTurretProperties(TurretProperties props)
     {
-        if (m_Mode != props.Mode) return;
+        if (m_mode != props.Mode) return;
 
-        m_RefireTimer = 0;
+        m_refireTimer = 0;
 
-        m_TurretProperties = props;
-    }
-
-    public void SetShakeCamera(ShakeCamera shakeCamera)
-    {
-        _shakeCamera = shakeCamera;
+        m_turretProperties = props;
     }
 }

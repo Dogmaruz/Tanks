@@ -1,21 +1,18 @@
 using UnityEngine;
+using Zenject;
 
-public class RecalculationGrid : MonoBehaviour, IDependency<A_Grid>
+public class RecalculationGrid : MonoBehaviour
 {
     private A_Grid _grid;
 
-    public void Construct(A_Grid obj)
+    [Inject]
+    public void Construct(A_Grid grid)
     {
-        _grid = obj;
+        _grid = grid;
     }
 
     public void UpdateGrid()
     {
         _grid.CreateGrid();
-    }
-
-    public void SetGrid(A_Grid grid)
-    {
-        _grid = grid;
     }
 }

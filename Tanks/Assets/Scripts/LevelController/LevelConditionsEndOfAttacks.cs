@@ -3,10 +3,6 @@ using UnityEngine;
 
 public class LevelConditionsEndOfAttacks : MonoBehaviour, ILevelCondition
 {
-    [SerializeField] private LayerMask m_layermask;
-
-    //private bool m_Reached; //Есть ли завершение.
-
     public bool IsCompleted
     {
         get

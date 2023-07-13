@@ -337,9 +337,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 330aa249dd678c74c8daff7cd9e81250, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Mode: 1
-  m_TurretProperties: {fileID: 11400000, guid: cd7679e2b02c93345aa1484a6dc08564, type: 2}
-  m_BulletSpawnPoint: {fileID: 2975085875011712870}
+  m_mode: 1
+  m_turretProperties: {fileID: 11400000, guid: cd7679e2b02c93345aa1484a6dc08564, type: 2}
+  m_bulletSpawnPoint: {fileID: 2975085875011712870}
 --- !u!1 &8103345258710357577
 GameObject:
   m_ObjectHideFlags: 0
@@ -979,9 +979,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 330aa249dd678c74c8daff7cd9e81250, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Mode: 0
-  m_TurretProperties: {fileID: 11400000, guid: f11faa077ecb64e43972f0cdee3948aa, type: 2}
-  m_BulletSpawnPoint: {fileID: 2975085875011712870}
+  m_mode: 0
+  m_turretProperties: {fileID: 11400000, guid: f11faa077ecb64e43972f0cdee3948aa, type: 2}
+  m_bulletSpawnPoint: {fileID: 2975085875011712870}
 --- !u!1001 &2202875057446637275
 PrefabInstance:
   m_ObjectHideFlags: 0

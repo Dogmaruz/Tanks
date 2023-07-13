@@ -1,15 +1,26 @@
 using UnityEngine;
+using Zenject;
 
 public class AI_CharacterController : FP_CharacterController
 {
     Vector3 gunTarget;
+
+    private Player _player;
+
+    [Inject]
+    public void Construct(Player player)
+    {
+        _player = player;
+    }
 
     public override void UpdateInputs(ref PlayerInputs playerInputs)
     {
         // Атака.
         if (playerInputs.MouseButtonPrimaryDown)
         {
-            gunTarget = Player.Instance.CharacterController.transform.position - m_TowerTransform.position;
+            if (_player.CharacterController == null) return;
+
+            gunTarget = _player.CharacterController.transform.position - m_TowerTransform.position;
 
             _mode = TurretMode.Primary;
 

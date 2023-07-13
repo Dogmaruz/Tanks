@@ -11,7 +11,7 @@ public class UISelectableButton : UIButton
 
     public UnityEvent OnUnSelect;
 
-    private DG.Tweening.Sequence _sequence;
+    private Sequence _sequence;
 
     public override void SetFocuse()
     {

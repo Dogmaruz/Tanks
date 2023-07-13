@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.Events;
+using Zenject;
 
 public class Projectile : Entity
 {
@@ -23,6 +24,16 @@ public class Projectile : Entity
     public UnityEvent<Destructible> EventOnHit => m_EventOnHit;
 
     private ShakeCamera _shakeCamera;
+
+    private Player _player;
+
+    [Inject]
+    public void Construct(ShakeCamera shakeCamera, Player player)
+    {
+        _player = player;
+
+        _shakeCamera = shakeCamera;
+    }
 
     private void Update()
     {
@@ -108,7 +119,7 @@ public class Projectile : Entity
 
         if (destructible.CurrentHitPoint <= 0)
         {
-            Player.Instance.AddScore(destructible.ScoreValue);
+            _player.AddScore(destructible.ScoreValue);
         }
     }
 

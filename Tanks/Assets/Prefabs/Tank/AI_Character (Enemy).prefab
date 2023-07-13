@@ -233,7 +233,7 @@ MonoBehaviour:
   - {x: 1.0240424, y: -0.9837314, z: 0}
   m_ShapePathHash: 1454597789
   m_Mesh: {fileID: 0}
-  m_InstanceId: -35980
+  m_InstanceId: 255840
 --- !u!1 &3961739727424777213
 GameObject:
   m_ObjectHideFlags: 0
@@ -334,9 +334,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 330aa249dd678c74c8daff7cd9e81250, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Mode: 0
-  m_TurretProperties: {fileID: 11400000, guid: 57bf5f5173755764b89315dc00dfcad9, type: 2}
-  m_BulletSpawnPoint: {fileID: 8032068845782717826}
+  m_mode: 0
+  m_turretProperties: {fileID: 11400000, guid: 57bf5f5173755764b89315dc00dfcad9, type: 2}
+  m_bulletSpawnPoint: {fileID: 8032068845782717826}
 --- !u!1 &3961739727474543925
 GameObject:
   m_ObjectHideFlags: 0

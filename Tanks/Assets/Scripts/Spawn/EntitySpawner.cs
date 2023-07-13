@@ -1,7 +1,8 @@
 using System.Collections.Generic;
 using UnityEngine;
+using Zenject;
 
-public class EntitySpawner : MonoBehaviour, IDependency<A_Grid>
+public class EntitySpawner : MonoBehaviour
 {
     public enum SpawnMode
     {
@@ -23,9 +24,18 @@ public class EntitySpawner : MonoBehaviour, IDependency<A_Grid>
 
     private A_Grid _grid;
 
-    public void Construct(A_Grid obj)
+    private Player _player;
+
+    private DiContainer _diContainer;
+
+    [Inject]
+    public void Construct(A_Grid grid, Player player, DiContainer diContainer)
     {
-        _grid = obj;
+        _player = player;
+
+        _grid = grid;
+
+        _diContainer = diContainer;
     }
 
     private void Start()
@@ -70,26 +80,22 @@ public class EntitySpawner : MonoBehaviour, IDependency<A_Grid>
             {
                 Vector3 target = node.worldPosition;
 
-                var distance = Vector2.Distance(Player.Instance.CharacterController.transform.position, target);
+                var distance = Vector2.Distance(_player.CharacterController.transform.position, target);
 
                 node.IsActive = true;
 
                 if (distance >= m_maxDistanceSpawnToPlayer)
                 {
-                    GameObject newEntity = Instantiate(m_entityPrefabs[index].gameObject);
+                    GameObject newEntity = _diContainer.InstantiatePrefab(m_entityPrefabs[index].gameObject);
 
                     var enemy = newEntity.GetComponent<AI_MovementController>();
 
                     if (enemy != null)
                     {
                         _grid.CreateGrid();
-
-                        enemy.Grid = _grid;
-
-                        enemy.GetComponent<Pathfinding>().SetGrid(_grid);
                     }
 
-                     newEntity.transform.position = target;
+                    newEntity.transform.position = target;
 
                     entitiesSpawned++;
                 }

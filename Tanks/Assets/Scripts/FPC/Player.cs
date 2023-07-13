@@ -1,49 +1,49 @@
 using UnityEngine;
+using Zenject;
 
-public class Player : SingletonBase<Player>, IDependency<FP_MovementController>, IDependency<LevelResultController>, IDependency<ShakeCamera>
+public class Player : MonoBehaviour
 {
     [SerializeField] private int m_HP;
 
     [SerializeField] private Transform m_respawnPoint;
 
-    private FP_CharacterController m_characterController; //Ссылка на игрока.
-    public FP_CharacterController CharacterController => m_characterController;
-
-    private FP_MovementController _movementController;
+    private FP_CharacterController _characterController; //Ссылка на игрока.
+    public FP_CharacterController CharacterController => _characterController;
 
     private LevelResultController _levelResultController;
 
-    private ShakeCamera _shakeCamera;
+    private GamePause _gamePause;
 
-    public void Construct(ShakeCamera obj)
+    private LevelSequenceController _levelSequenceController;
+
+    [Inject]
+    public void Construct(GamePause gamePause, ShakeCamera shakeCamera, LevelResultController levelResultController, FP_CharacterController characterController, LevelSequenceController levelSequenceController)
     {
-        _shakeCamera = obj;
+        _levelResultController = levelResultController;
+
+        _characterController = characterController;
+
+        _gamePause = gamePause;
+
+        _levelSequenceController = levelSequenceController;
     }
 
-    public void Construct(FP_MovementController obj)
+    protected void Awake()
     {
-        _movementController = obj;
-    }
+        _gamePause.UnPause();
 
-    public void Construct(LevelResultController obj)
-    {
-        _levelResultController = obj;
-    }
-
-    protected override void Awake()
-    {
-        base.Awake();
-
-        Respawn();
+        _levelSequenceController.OnResult += ShowResultPanel;
     }
 
     private void OnDestroy()
     {
-        m_characterController.EventOnDeath?.RemoveListener(OnPlayerDeath);
+        _characterController.EventOnDeath?.RemoveListener(OnPlayerDeath);
+
+        _levelSequenceController.OnResult -= ShowResultPanel;
     }
 
     //Вызывается при уничтожении игрока.
-    private void OnPlayerDeath()
+    public void OnPlayerDeath()
     {
         ShowResultPanel(false);
     }
@@ -53,34 +53,6 @@ public class Player : SingletonBase<Player>, IDependency<FP_MovementController>,
         _levelResultController.ShowResults(success);
     }
 
-    /// <summary>
-    /// Перерождает кораль игрока.
-    /// </summary>
-    private void Respawn()
-    {
-        if (LevelSequenceController.Instance.CharacterController != null)
-        {
-            var newPlayer = Instantiate(LevelSequenceController.Instance.CharacterController, m_respawnPoint.position, Quaternion.identity);
-
-            m_characterController = newPlayer.GetComponent<FP_CharacterController>();
-
-            m_characterController.EventOnDeath?.AddListener(OnPlayerDeath);
-
-            m_characterController.SetHitpoints(m_HP);
-
-            var turrets = m_characterController.GetComponentsInChildren<Turret>();
-
-            foreach (var turret in turrets)
-            {
-                turret.SetShakeCamera(_shakeCamera);
-            }
-
-            _movementController.SetTargetCharacterController(m_characterController);
-        }
-    }
-
-    #region Score
-
     public int Score { get; private set; } //Счет.
 
     //Увеличивает счет.
@@ -89,5 +61,4 @@ public class Player : SingletonBase<Player>, IDependency<FP_MovementController>,
         Score += num;
     }
 
-    #endregion
 }

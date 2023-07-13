@@ -1,19 +1,16 @@
 ﻿using System.Collections.Generic;
 using System.Diagnostics;
 using UnityEngine;
+using Zenject;
 
-public class Pathfinding : MonoBehaviour, IDependency<A_Grid>
+public class Pathfinding : MonoBehaviour
 {
     private A_Grid _grid;
 
     public List<Node> Path = new List<Node>();
 
-    public void Construct(A_Grid obj)
-    {
-        _grid = obj;
-    }
-
-    public void SetGrid(A_Grid grid)
+    [Inject]
+    public void Construct(A_Grid grid)
     {
         _grid = grid;
     }

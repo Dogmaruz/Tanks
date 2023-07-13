@@ -1,6 +1,7 @@
 using UnityEngine;
+using Zenject;
 
-public class UIPausePanel : MonoBehaviour, IDependency<GamePause>
+public class UIPausePanel : MonoBehaviour
 {
     [SerializeField] private GameObject m_pausePanel;
 
@@ -8,9 +9,10 @@ public class UIPausePanel : MonoBehaviour, IDependency<GamePause>
 
     private GamePause _gamePause;
 
-    public void Construct(GamePause obj)
+    [Inject]
+    public void Construct(GamePause gamePause)
     {
-        _gamePause = obj;
+        _gamePause = gamePause;
     }
 
     private void Start()

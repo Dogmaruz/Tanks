@@ -1,10 +1,11 @@
+using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Zenject;
 
-
-public class LevelSequenceController : SingletonBase<LevelSequenceController>
+public class LevelSequenceController : MonoBehaviour
 {
-    [SerializeField] private FP_CharacterController m_characterController; //Ссылка на игрока.
+    public event Action<bool> OnResult;
 
     public static string MainMenu_SceneNickName = "Main_Menu";
     public Episode CurrentEpisode { get; private set; } //Текущий эпизод.
@@ -12,9 +13,6 @@ public class LevelSequenceController : SingletonBase<LevelSequenceController>
     public int CurrentLevel { get; private set; } //Текущий уровень.
 
     public bool LastLevelResult { get; private set; }
-
-    public FP_CharacterController CharacterController => m_characterController;
-
 
     public int EpisodeCount { get; private set; } = 1; //Колличество пройденных эпизодов.
 
@@ -39,7 +37,7 @@ public class LevelSequenceController : SingletonBase<LevelSequenceController>
     {
         LastLevelResult = success;
 
-        Player.Instance.ShowResultPanel(success);
+        OnResult?.Invoke(success);
     }
 
     //Переход на другой  уровень если он есть, а иначе завершение эпизода и выход в главное меню.

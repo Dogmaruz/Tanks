@@ -1,12 +1,13 @@
 ﻿using UnityEngine;
 using UnityEngine.Events;
+using Zenject;
 
 public interface ILevelCondition
 {
     bool IsCompleted { get; }
 }
 
-public class LevelController : SingletonBase<LevelController>
+public class LevelController : MonoBehaviour
 {
     [SerializeField] protected float m_ReferenceTime; //Время для выполнения условий.
     public float ReferenceTime => m_ReferenceTime;
@@ -19,6 +20,14 @@ public class LevelController : SingletonBase<LevelController>
 
     private float m_LevelTime; //Время затраченное на прохождение уровня.
     public float LevelTime => m_LevelTime;
+
+    private LevelSequenceController _levelSequenceController;
+
+    [Inject]
+    public void Construct(LevelSequenceController levelSequenceController)
+    {
+        _levelSequenceController = levelSequenceController;
+    }
 
     protected void Start()
     {
@@ -61,7 +70,7 @@ public class LevelController : SingletonBase<LevelController>
 
             m_EventLevelCompleted?.Invoke();
 
-            LevelSequenceController.Instance?.FinishCurrentLevel(true);
+            _levelSequenceController.FinishCurrentLevel(true);
         }
     }
 }
