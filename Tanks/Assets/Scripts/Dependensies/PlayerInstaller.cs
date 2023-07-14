@@ -7,8 +7,6 @@ public class PlayerInstaller : MonoInstaller
 
     [SerializeField] private Transform m_characterSpawnPoint;
 
-    [SerializeField] private FP_MovementController m_movementController;
-
     [SerializeField] private Player m_player;
 
     private FP_CharacterController playerInstance;
@@ -21,10 +19,7 @@ public class PlayerInstaller : MonoInstaller
     private void BindPlayer()
     {
         Container.
-                    Bind<Player>().FromInstance(m_player).AsSingle();
-
-        Container.
-            Bind<FP_MovementController>().FromInstance(m_movementController).AsSingle();
+            Bind<Player>().FromInstance(m_player).AsSingle();
 
         playerInstance = Container.
             InstantiatePrefabForComponent<FP_CharacterController>(m_characterController, m_characterSpawnPoint.position, Quaternion.identity, null);

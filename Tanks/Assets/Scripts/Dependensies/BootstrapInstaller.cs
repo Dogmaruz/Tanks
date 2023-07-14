@@ -10,9 +10,13 @@ public class BootstrapInstaller : MonoInstaller
     public override void InstallBindings()
     {
         Container.
-            Bind<GamePause>().FromInstance(m_gamePause).AsSingle();
+            Bind<LevelSequenceController>().
+            FromInstance(m_levelSequenceController).
+            AsSingle();
 
         Container.
-            Bind<LevelSequenceController>().FromInstance(m_levelSequenceController).AsSingle();
+            Bind<GamePause>().
+            FromInstance(m_gamePause).
+            AsSingle();
     }
 }
