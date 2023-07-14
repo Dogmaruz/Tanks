@@ -1,10 +1,12 @@
 using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using Zenject;
 
 public class LevelSequenceController : MonoBehaviour
 {
+    [SerializeField] private FP_CharacterController m_characterController;
+    public FP_CharacterController CharacterController => m_characterController;
+
     public event Action<bool> OnResult;
 
     public static string MainMenu_SceneNickName = "Main_Menu";

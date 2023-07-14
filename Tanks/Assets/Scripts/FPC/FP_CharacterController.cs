@@ -4,8 +4,6 @@ public class FP_CharacterController : Destructible
 {
     [SerializeField] protected float m_moveSpeed; // Скорость движения.
 
-    //[SerializeField] private Animator m_animator;
-
     [SerializeField] private int m_MaxAmmo;
 
     [SerializeField] protected Transform m_TowerTransform; // Transform для вращения персонажа

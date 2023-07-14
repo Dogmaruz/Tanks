@@ -7,6 +7,6 @@ public class CameraInstaller : MonoInstaller
 
     public override void InstallBindings()
     {
-        Container.Bind<ShakeCamera>().FromInstance(m_shakeCamera).AsSingle().NonLazy();
+        Container.Bind<ShakeCamera>().FromInstance(m_shakeCamera).AsSingle();
     }
 }

@@ -16,12 +16,14 @@ public class Player : MonoBehaviour
 
     private LevelSequenceController _levelSequenceController;
 
-    [Inject]
-    public void Construct(GamePause gamePause, ShakeCamera shakeCamera, LevelResultController levelResultController, FP_CharacterController characterController, LevelSequenceController levelSequenceController)
-    {
-        _levelResultController = levelResultController;
+    private DiContainer _diContainer;
 
-        _characterController = characterController;
+    [Inject]
+    public void Construct(DiContainer diContainer, GamePause gamePause, ShakeCamera shakeCamera, LevelResultController levelResultController, LevelSequenceController levelSequenceController)
+    {
+        _diContainer = diContainer;
+
+        _levelResultController = levelResultController;
 
         _gamePause = gamePause;
 
@@ -33,6 +35,23 @@ public class Player : MonoBehaviour
         _gamePause.UnPause();
 
         _levelSequenceController.OnResult += ShowResultPanel;
+
+        Respawn();
+    }
+
+    private void Respawn()
+    {
+        if (_levelSequenceController.CharacterController != null)
+        {
+            var newPlayer = _diContainer.InstantiatePrefab(_levelSequenceController.CharacterController, m_respawnPoint.position, Quaternion.identity, null);
+
+            _characterController = newPlayer.GetComponent<FP_CharacterController>();
+
+            _characterController.EventOnDeath?.AddListener(OnPlayerDeath);
+
+            GetComponent<FP_MovementController>().SetTargetCharacterController(newPlayer.GetComponent<FP_CharacterController>());
+        }
+
     }
 
     private void OnDestroy()
@@ -60,5 +79,4 @@ public class Player : MonoBehaviour
     {
         Score += num;
     }
-
 }

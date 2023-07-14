@@ -1,5 +1,4 @@
 using UnityEngine;
-using Zenject;
 
 public enum CharacterState
 {
@@ -31,12 +30,6 @@ public class FP_MovementController : MonoBehaviour
     protected const string _horizontalInput = "Horizontal";
 
     protected const string _verticalInput = "Vertical";
-
-    [Inject]
-    public void Construct(FP_CharacterController character)
-    {
-        _character = character;
-    }
 
     protected PlayerInputs _playerInputs;
 

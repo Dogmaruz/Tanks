@@ -122,10 +122,5 @@ public class Projectile : Entity
             _player.AddScore(destructible.ScoreValue);
         }
     }
-
-    public void SetShakeCamera(ShakeCamera shakeCamera)
-    {
-        _shakeCamera = shakeCamera;
-    }
 }
 

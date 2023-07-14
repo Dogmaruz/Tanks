@@ -49,7 +49,7 @@ public class Turret : MonoBehaviour
             if (m_character.DrawAmmo(m_turretProperties.AmoUsage) == false) return;
         }
 
-        Projectile projectile = _diContainer.InstantiatePrefab(m_turretProperties.ProjectilePrefab).GetComponent<Projectile>();
+        var projectile = _diContainer.InstantiatePrefab(m_turretProperties.ProjectilePrefab).GetComponent<Projectile>();
 
         projectile.transform.position = m_bulletSpawnPoint.position;
 
