@@ -8,6 +8,8 @@ public abstract class PowerUp : MonoBehaviour
     {
         FP_CharacterController character = collision.transform.root.GetComponent<FP_CharacterController>();
 
+        if (character is AI_CharacterController) return;
+
         if (character != null)
         {
             OnPickedUp(character);
